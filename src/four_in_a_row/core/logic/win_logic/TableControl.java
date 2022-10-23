@@ -34,14 +34,24 @@ public class TableControl {
                         .reduce((first, second) -> first || second).get(), i -> i + 1)
 
                 .forEach(i ->
-                        IntStream.iterate(0, j -> j < searchResults.size(), j -> j + 1)
+                        IntStream.iterate(0, j -> j < searchResults.size() - 1, j -> j + 2)
                                 .forEach(j -> {
                                     // you need to iterate two items each time in order to
                                     // have the possibility to join the result per search
                                     searchResults.get(j).control(cells, initCoordsToCheck, i);
+                                    searchResults.get(j + 1).control(cells, initCoordsToCheck, i);
+
                                     int searchCoordsSize = searchResults.get(j).getSearchResult().size();
-                                    if (searchCoordsSize == 3) coordSet.addAll(searchResults.get(j).getSearchResult().subList(0, 3));
-                                    else if (searchCoordsSize >= 4) coordSet.add(searchResults.get(j).getSearchResult().get(searchCoordsSize - 1));
+                                    int searchCoordsSize1 = searchResults.get(j + 1).getSearchResult().size();
+
+                                    if (searchCoordsSize + searchCoordsSize1 == 3) {
+                                        coordSet.addAll(searchResults.get(j).getSearchResult());
+                                        coordSet.addAll(searchResults.get(j + 1).getSearchResult());
+                                    }
+                                    else if (searchCoordsSize >= 4) {
+                                        coordSet.add(searchResults.get(j).getSearchResultCoords(searchCoordsSize - 1));
+                                        coordSet.add(searchResults.get(j + 1).getSearchResultCoords(searchCoordsSize1 - 1));
+                                    }
                                 })
                 );
 

@@ -31,6 +31,10 @@ public class CoordinateSearchResult {
         return searchResult;
     }
 
+    public TableCoordinates getSearchResultCoords(int index) {
+        return searchResult.get(index);
+    }
+
     public void control(Cells cells, TableCoordinates start, int incrNumber) {
 
         int row = start.getY(), col = start.getX();
@@ -44,10 +48,11 @@ public class CoordinateSearchResult {
         if (TableCoordinates.areXCoordsValid(newX)
                 && TableCoordinates.areYCoordsValid(newY)
                 && cells.isCellNotEmpty(coordinates)
-                && cells.getCellColor(newX, newY) == this.tokenColor) this.searchResult.add(coordinates);
+                && cells.getCellColor(newX, newY) == this.tokenColor) {
+            this.searchResult.add(coordinates);
+        }
 
         else controlAvailable = false;
-
     }
 
 }
