@@ -26,8 +26,8 @@ public class Game {
         this.gameTableControl = new GameTableControl(this.gameTable);
     }
 
-    public Coordinates turnExecution(int col) {
-        Coordinates coordinates = gameTable.addTokenToCell(col, new Token(currentPlayer.getColor()));
+    public TableCoordinates turnExecution(int col) {
+        TableCoordinates coordinates = gameTable.addTokenToCell(col, new Token(currentPlayer.getColor()));
         currentPlayer = currentPlayer == firstPlayer ? secondPlayer : firstPlayer;
         return coordinates;
     }

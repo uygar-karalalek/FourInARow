@@ -1,71 +1,52 @@
 package four_in_a_row.core.logic.win_logic;
 
-import four_in_a_row.core.logic.Coordinates;
+import four_in_a_row.core.logic.TableCoordinates;
 import four_in_a_row.core.logic.TokenColor;
 import four_in_a_row.core.structure.Cell;
-import four_in_a_row.core.structure.Table;
-import four_in_a_row.util.Pair;
+import four_in_a_row.core.structure.Cells;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public class TableControl {
 
-    private Cell[][] cells;
+    private Cells cells;
     private TokenColor controlColor;
 
-    public TableControl(Cell[][] cells, TokenColor controlColor) {
+    public TableControl(Cells cells, TokenColor controlColor) {
         this.cells = cells;
         this.controlColor = controlColor;
     }
 
-    public List<Coordinates> controlFourInARow(Coordinates initCoordsToCheck, ControlFactorType... controlFactors) {
-        List<Coordinates> coordinateList = new ArrayList<>();
+    public Set<TableCoordinates> controlFourInARow(TableCoordinates initCoordsToCheck, ControlFactorType... controlFactors) {
+        Set<TableCoordinates> coordSet = new HashSet<>() {{ add(initCoordsToCheck); }};
 
-        List<Boolean> flags = new ArrayList<>() {{
-            IntStream.range(0, controlFactors.length * 2).forEach(i -> this.add(true));
+        List<CoordinateSearchResult> searchResults = new ArrayList<>() {{
+            IntStream.range(0, controlFactors.length)
+                    .forEach(i -> this.add(new CoordinateSearchResult(controlFactors[i], controlColor)));
         }};
 
-        for (int incrNumber = 0;
-             flags.stream().reduce((firstBool, secondBool) -> firstBool || secondBool).get(); incrNumber++) {
+        IntStream.iterate(1, i -> searchResults.stream()
+                        .map(CoordinateSearchResult::isControlAvailable)
+                        .reduce((first, second) -> first || second).get(), i -> i + 1)
 
-            for (int j = 0; j < controlFactors.length; j++) {
-                // For each control factor we need to have also an internal list that specifies what was found
-                CoordinateSearchResult controls = control(controlFactors[j], initCoordsToCheck, incrNumber, this.controlColor);
+                .forEach(i ->
+                        IntStream.iterate(0, j -> j < searchResults.size(), j -> j + 1)
+                                .forEach(j -> {
+                                    // you need to iterate two items each time in order to
+                                    // have the possibility to join the result per search
+                                    searchResults.get(j).control(cells, initCoordsToCheck, i);
+                                    int searchCoordsSize = searchResults.get(j).getSearchResult().size();
+                                    if (searchCoordsSize == 3) coordSet.addAll(searchResults.get(j).getSearchResult().subList(0, 3));
+                                    else if (searchCoordsSize >= 4) coordSet.add(searchResults.get(j).getSearchResult().get(searchCoordsSize - 1));
+                                })
+                );
 
-            }
-        }
-
-        return List.of();
+        return coordSet;
     }
 
-    public CoordinateSearchResult control(ControlFactorType controlFactor,
-                                          Coordinates currentToCheck,
-                                          int incrNumber,
-                                          TokenColor color) {
-
-        int row = currentToCheck.getY(),
-                col = currentToCheck.getX();
-
-        BiFunction<Integer, Integer, Coordinates> controlOfTwoFactors = (xFactor, yFactor) -> {
-            int xIncrement = xFactor * incrNumber, yIncrement = yFactor * incrNumber;
-            int newXCoords = col + xIncrement, newYCoords = row + yIncrement;
-
-            if (newXCoords >= Table.WIDTH || newXCoords < 0) return null;
-            else if (newYCoords >= Table.HEIGHT || newYCoords < 0) return null;
-            else if (cells[newYCoords][newXCoords].getItem().get().getColor() == color)
-                return new Coordinates(newXCoords, newYCoords);
-            return null;
-        };
-
-        CoordinateSearchResult coordinateSearchResult = new CoordinateSearchResult();
-        coordinateSearchResult.setFirstSearched(controlOfTwoFactors.apply(controlFactor.getXFactor(), controlFactor.getYFactor()));
-        coordinateSearchResult.setSecondSearched(controlOfTwoFactors.apply(controlFactor.getSecondXFactor(), controlFactor.getSecondYFactor()));
-
-        return coordinateSearchResult;
-    }
 
 }

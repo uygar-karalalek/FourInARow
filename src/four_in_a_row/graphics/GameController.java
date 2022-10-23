@@ -1,6 +1,6 @@
 package four_in_a_row.graphics;
 
-import four_in_a_row.core.logic.Coordinates;
+import four_in_a_row.core.logic.TableCoordinates;
 import four_in_a_row.core.logic.Game;
 import four_in_a_row.core.logic.TokenColor;
 import four_in_a_row.core.structure.Cell;
@@ -39,8 +39,8 @@ public class GameController {
         IntStream.range(0, Table.WIDTH).forEach(col ->
                 columnsMouseDetectionPane.getChildren().get(col)
                         .setOnMouseClicked(ev -> {
-                            Coordinates coordinates = game.turnExecution(col);
-                            System.out.println(game.getGameTableControl().controlBasedOnPivot(coordinates));
+                            TableCoordinates coordinates = game.turnExecution(col);
+                            System.out.println(game.getGameTableControl().controlBasedOnPivot(coordinates).size());
                         }));
     }
 
@@ -72,7 +72,7 @@ public class GameController {
                 IntStream.range(0, 7).forEach(col -> {
                     try {
 
-                        Coordinates coordinates = new Coordinates(col, row);
+                        TableCoordinates coordinates = new TableCoordinates(col, row);
                         FXMLLoader loader = new FXMLLoader();
                         loader.load(getClass().getResourceAsStream("../cell.fxml"));
 
@@ -81,7 +81,7 @@ public class GameController {
 
                         graphicTable.add(cellController.mainLayout, coordinates.getX(), coordinates.getY());
                         Cell cell = new Cell(coordinates);
-                        game.getGameTable().getCells()[coordinates.getY()][coordinates.getX()] = cell;
+                        game.getGameTable().setCell(coordinates, cell);
                         cell.getItem().addListener((obs, token, newToken) -> {
                             if (newToken.getColor() == TokenColor.RED)
                                 cellController.circle.setFill(Color.RED);

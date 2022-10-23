@@ -1,28 +1,28 @@
 package four_in_a_row.core.structure;
 
-import four_in_a_row.core.logic.Coordinates;
+import four_in_a_row.core.logic.TableCoordinates;
 import javafx.beans.property.SimpleObjectProperty;
 
 public class Cell {
 
-    private Coordinates coordinates;
-    private SimpleObjectProperty<Token> item;
+    private TableCoordinates coordinates;
+    private SimpleObjectProperty<Token> item ;
 
-    public Cell(Coordinates coordinates, Token item) {
+    public Cell(TableCoordinates coordinates, Token item) {
         this.coordinates = coordinates;
         this.item = new SimpleObjectProperty<>(item);
     }
 
-    public Cell(Coordinates coordinates) {
+    public Cell(TableCoordinates coordinates) {
         this.coordinates = coordinates;
         this.item = new SimpleObjectProperty<>(null);
     }
 
-    public Coordinates getCoordinates() {
+    public TableCoordinates getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Coordinates coordinates) {
+    public void setCoordinates(TableCoordinates coordinates) {
         this.coordinates = coordinates;
     }
 
