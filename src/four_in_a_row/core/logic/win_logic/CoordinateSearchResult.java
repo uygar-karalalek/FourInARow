@@ -35,12 +35,12 @@ public class CoordinateSearchResult {
         return searchResult.get(index);
     }
 
-    public void control(Cells cells, TableCoordinates start, int incrNumber) {
+    public void control(Cells cells, TableCoordinates start, int cycle) {
 
         int row = start.getY(), col = start.getX();
 
-        int xIncrement = this.controlFactorType.getXFactor() * incrNumber;
-        int yIncrement = this.controlFactorType.getYFactor() * incrNumber;
+        int xIncrement = this.controlFactorType.getXFactor() * cycle;
+        int yIncrement = this.controlFactorType.getYFactor() * cycle;
         int newX = col + xIncrement, newY = row + yIncrement;
 
         TableCoordinates coordinates = new TableCoordinates(newX, newY);
