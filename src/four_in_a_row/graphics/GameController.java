@@ -2,17 +2,16 @@ package four_in_a_row.graphics;
 
 import four_in_a_row.core.logic.TableCoordinates;
 import four_in_a_row.core.logic.Game;
-import four_in_a_row.core.logic.TokenColor;
 import four_in_a_row.core.structure.Cell;
 import four_in_a_row.core.structure.Table;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
@@ -40,12 +39,12 @@ public class GameController {
                 columnsMouseDetectionPane.getChildren().get(col)
                         .setOnMouseClicked(ev -> {
                             TableCoordinates coordinates = game.turnExecution(col);
-                            System.out.println(game.getGameTableControl().controlBasedOnPivot(coordinates).size());
+                            // System.out.println(game.getGameTableControl().controlBasedOnPivot(coordinates).size());
                         }));
     }
 
     private void onSizeChanged(Observable observable) {
-        double min = Math.min(graphicTable.getWidth(), graphicTable.getHeight());
+        double min = getTableMinimumSizeBoundary();
         columnsMouseDetectionPane.getChildren().forEach(node -> {
             if (node instanceof Pane)
                 ((Pane) node).setPrefSize
@@ -60,11 +59,26 @@ public class GameController {
                 .forEach(this::updateItemSizeBasedOnTable);
     }
 
+    public double getTokenSlotSize() {
+        double min = getTableMinimumSizeBoundary();
+        return (min / Table.HEIGHT) - BORDER_WIDTH;
+    }
+
     private void updateItemSizeBasedOnTable(StackPane pane) {
-        double min = Math.min(graphicTable.getWidth(), graphicTable.getHeight());
-        pane.setPrefSize(min / Table.WIDTH, min / Table.WIDTH);
+        double prefSize = getTableMinimumSizeBoundary() / Table.WIDTH;
+        double tokenSlotSize = getTokenSlotSize();
+        pane.setPrefSize(prefSize, prefSize);
+
         Circle circle = (Circle) pane.getChildren().get(0);
-        circle.setRadius((min / (Table.HEIGHT * 2)) - BORDER_WIDTH);
+        circle.setRadius(tokenSlotSize / 2);
+
+        ImageView tokenImage = (ImageView) pane.getChildren().get(1);
+        tokenImage.setFitWidth(tokenSlotSize);
+        tokenImage.setFitHeight(tokenSlotSize);
+    }
+
+    private double getTableMinimumSizeBoundary() {
+        return Math.min(graphicTable.getWidth(), graphicTable.getHeight());
     }
 
     private void createTable() {
@@ -77,17 +91,15 @@ public class GameController {
                         loader.load(getClass().getResourceAsStream("../cell.fxml"));
 
                         CellController cellController = loader.getController();
-                        updateItemSizeBasedOnTable(cellController.mainLayout);
 
                         graphicTable.add(cellController.mainLayout, coordinates.getX(), coordinates.getY());
+
+                        updateItemSizeBasedOnTable(cellController.mainLayout);
+
                         Cell cell = new Cell(coordinates);
                         game.getGameTable().setCell(coordinates, cell);
-                        cell.getItem().addListener((obs, token, newToken) -> {
-                            if (newToken.getColor() == TokenColor.RED)
-                                cellController.circle.setFill(Color.RED);
-                            else
-                                cellController.circle.setFill(Color.YELLOW);
-                        });
+
+                        cell.getItem().addListener((obs, token, newToken) -> cellController.updateCellGraphics(newToken, getTokenSlotSize() - 10));
 
                     } catch (IOException e) {
                         e.printStackTrace();

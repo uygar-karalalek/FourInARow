@@ -24,7 +24,7 @@ public class Main extends Application {
 
         Game game = new Game(
                 new Player(TokenColor.RED, firstPlayerName),
-                new Player(TokenColor.YELLOW, secondPlayerName),
+                new Player(TokenColor.BLUE, secondPlayerName),
                 new Table());
 
         controller.setGame(game);
