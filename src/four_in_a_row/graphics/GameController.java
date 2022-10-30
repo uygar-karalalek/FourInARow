@@ -61,7 +61,7 @@ public class GameController {
 
     public double getTokenSlotSize() {
         double min = getTableMinimumSizeBoundary();
-        return (min / Table.HEIGHT) - BORDER_WIDTH;
+        return (min / Table.HEIGHT);
     }
 
     private void updateItemSizeBasedOnTable(StackPane pane) {
@@ -69,12 +69,15 @@ public class GameController {
         double tokenSlotSize = getTokenSlotSize();
         pane.setPrefSize(prefSize, prefSize);
 
-        Circle circle = (Circle) pane.getChildren().get(0);
-        circle.setRadius(tokenSlotSize / 2);
+        pane.getChildren().forEach(node -> {
+            if (node instanceof Circle)
+                ((Circle) node).setRadius(tokenSlotSize / 2 - BORDER_WIDTH);
+            else if (node instanceof ImageView) {
+                ((ImageView) node).setFitWidth(tokenSlotSize - BORDER_WIDTH);
+                ((ImageView) node).setFitHeight(tokenSlotSize - BORDER_WIDTH);
+            }
+        });
 
-        ImageView tokenImage = (ImageView) pane.getChildren().get(1);
-        tokenImage.setFitWidth(tokenSlotSize);
-        tokenImage.setFitHeight(tokenSlotSize);
     }
 
     private double getTableMinimumSizeBoundary() {
