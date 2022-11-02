@@ -10,6 +10,7 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -43,6 +44,10 @@ public class GameController {
 
     @FXML
     public BorderPane gameTablePane;
+    @FXML
+    public Button playButton;
+    @FXML
+    public Label winnerLabel;
 
     private Game game;
 
@@ -69,7 +74,10 @@ public class GameController {
                             Set<TableCoordinates> tableCoordinates =
                                     game.getGameTableControl().controlBasedOnPivot(coordinates);
                             if (tableCoordinates.size() >= 4) {
-                                System.out.println("Player " + current.getName() +" won!");
+                                this.winnerLabel.setOpacity(1);
+                                this.winnerLabel.setText("Player " + current.getName() +" won!");
+                                this.gameTablePane.setDisable(true);
+                                this.gameTablePane.setOpacity(0.5);
                             }
                         }));
     }
@@ -156,7 +164,9 @@ public class GameController {
         this.leftBar.getChildren().remove(0, 3);
         this.leftBar.getChildren().addAll(0, List.of(this.player1NameLabel, this.player2NameLabel));
 
+        this.playButton.setText("Play again");
         this.gameTablePane.setDisable(false);
+        this.gameTablePane.setOpacity(1);
     }
 
     @FXML

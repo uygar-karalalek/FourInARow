@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="mainLayout" minHeight="500.0" minWidth="600.0" prefHeight="517.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.GameController">
+<GridPane fx:id="mainLayout" minHeight="500.0" minWidth="600.0" prefHeight="517.0" prefWidth="704.0" stylesheets="@main_app.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.GameController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="140.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="300.0" />
@@ -23,8 +23,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="310.0" style="-fx-text-fill: black; -fx-font-family: arial; -fx-font-size: 12pt;" text="FOUR IN A ROW" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" />
-      <BorderPane fx:id="gameTablePane" disable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <BorderPane fx:id="gameTablePane" disable="true" opacity="0.18" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <padding>
             <Insets bottom="40.0" left="10.0" right="40.0" top="40.0" />
          </padding>
@@ -38,7 +37,7 @@
                      <RowConstraints />
                   </rowConstraints>
                </GridPane>
-               <HBox fx:id="columnsMouseDetectionPane" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0">
+               <HBox fx:id="columnsMouseDetectionPane" alignment="CENTER" opacity="0.29" prefHeight="100.0" prefWidth="200.0" spacing="2.0">
                   <Pane prefHeight="200.0" prefWidth="200.0" />
                   <Pane prefHeight="200.0" prefWidth="200.0" />
                   <Pane prefHeight="200.0" prefWidth="200.0" />
@@ -49,19 +48,22 @@
                </HBox>
             </StackPane>
          </center>
+         <top>
+            <Label id="winnerLbl" fx:id="winnerLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="408.0" text="Winner" BorderPane.alignment="CENTER" />
+         </top>
       </BorderPane>
       <VBox fx:id="leftBar" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.rowIndex="1">
          <children>
-            <HBox alignment="CENTER" />
-            <ChoiceBox fx:id="playerOneNameBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
-            <ChoiceBox fx:id="playerTwoNameBox" maxWidth="1.7976931348623157E308" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPlay" prefHeight="25.0" text="PLAY" />
+            <Label id="chooseText" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="310.0" text="Choose your player" textAlignment="CENTER" />
+            <ChoiceBox id="playerOneNameBox" fx:id="playerOneNameBox" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="170.0" />
+            <ChoiceBox id="playerTwoNameBox" fx:id="playerTwoNameBox" maxWidth="1.7976931348623157E308" />
+            <Button id="playBtn" fx:id="playButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPlay" prefHeight="25.0" text="PLAY" />
             <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="100.0" />
                </VBox.margin>
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreatePlayer" prefHeight="25.0" text="CREATE PLAYER" />
+                  <Button id="createBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreatePlayer" prefHeight="25.0" text="CREATE PLAYER" />
                </children>
             </VBox>
          </children>
@@ -69,5 +71,6 @@
             <Insets left="10.0" right="10.0" top="40.0" />
          </padding>
       </VBox>
+      <Label id="title" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="310.0" text="FOUR IN A ROW" textAlignment="CENTER" GridPane.columnIndex="1" />
    </children>
 </GridPane>

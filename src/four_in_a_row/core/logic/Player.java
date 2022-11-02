@@ -10,6 +10,10 @@ public class Player {
         this.name = name;
     }
 
+    public Player(TokenColor color) {
+        this.color = color;
+    }
+
     public String getName() {
         return name;
     }

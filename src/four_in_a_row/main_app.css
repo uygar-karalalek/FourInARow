@@ -1,0 +1,87 @@
+.root {
+    -fx-background-color: #d6cca5;
+}
+
+#title {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 18pt;
+    -fx-text-fill: #6b2a2a;
+}
+
+#chooseText {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14pt;
+    -fx-text-fill: #165e6d;
+}
+
+#winnerLbl {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14pt;
+    -fx-text-fill: #2e2eef;
+}
+
+#playerOneNameBox > .open-button > .arrow {
+    -fx-background-color: #3a801c;
+    -fx-scale-x: 1.3pt;
+    -fx-scale-y: 1.3pt;
+    -fx-border-color: black;
+}
+
+#playerOneNameBox > .open-button > .arrow:hover {
+    -fx-background-color: #29b1b7;
+    -fx-scale-x: 1.4pt;
+    -fx-scale-y: 1.4pt;
+    -fx-border-color: #8f2626;
+}
+
+#playerOneNameBox > .label {
+    -fx-background-color: #7a4c06;
+    -fx-background-radius: 2pt;
+    -fx-border-color: black;
+    -fx-border-radius: 2pt;
+}
+
+#playerTwoNameBox > .label {
+    -fx-background-color: #a0a0d0;
+    -fx-background-radius: 2pt;
+    -fx-border-color: black;
+    -fx-border-radius: 2pt;
+}
+
+#playerTwoNameBox > .open-button > .arrow {
+    -fx-background-color: #3a801c;
+    -fx-scale-x: 1.3pt;
+    -fx-scale-y: 1.3pt;
+    -fx-border-color: black;
+}
+
+#playerTwoNameBox > .open-button > .arrow:hover {
+    -fx-background-color: #29b1b7;
+    -fx-scale-x: 1.4pt;
+    -fx-scale-y: 1.4pt;
+    -fx-border-color: #8f2626;
+}
+
+#playBtn {
+    -fx-border-radius: 2pt;
+    -fx-border-color: black;
+    -fx-background-radius: 2pt;
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(green, #b4caaf);
+}
+
+#playBtn:hover {
+    -fx-background-color: linear-gradient(green, #cf9e29);
+}
+
+#createBtn {
+    -fx-border-radius: 2pt;
+    -fx-border-color: black;
+    -fx-background-radius: 2pt;
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#325bb0, #b4caaf);
+}
+
+#createBtn:hover {
+    -fx-background-color: linear-gradient(green, #aba493);
+}

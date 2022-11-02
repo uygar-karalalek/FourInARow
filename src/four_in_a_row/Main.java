@@ -16,16 +16,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String firstPlayerName = ApplicationProperties.getProperties().getProperty("firstPlayerName");
-        String secondPlayerName = ApplicationProperties.getProperty("secondPlayerName");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         Parent load = loader.load();
         GameController controller = loader.getController();
 
         Game game = new Game(
-                new Player(TokenColor.RED, firstPlayerName),
-                new Player(TokenColor.BLUE, secondPlayerName),
+                new Player(TokenColor.RED),
+                new Player(TokenColor.BLUE),
                 new Table());
 
         controller.setGame(game);
