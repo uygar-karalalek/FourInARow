@@ -32,6 +32,10 @@ public class Game {
         return coordinates;
     }
 
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
     public Token getTurnToken() {
         return currTurnToken;
     }

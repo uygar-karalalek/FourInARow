@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
 
 public class TableControl {
 
-    private Cells cells;
-    private TokenColor controlColor;
+    private final Cells cells;
+    private final TokenColor controlColor;
 
     public TableControl(Cells cells, TokenColor controlColor) {
         this.cells = cells;

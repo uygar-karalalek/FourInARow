@@ -18,6 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String firstPlayerName = ApplicationProperties.getProperties().getProperty("firstPlayerName");
         String secondPlayerName = ApplicationProperties.getProperty("secondPlayerName");
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         Parent load = loader.load();
         GameController controller = loader.getController();
