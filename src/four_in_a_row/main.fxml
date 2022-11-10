@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="mainLayout" minHeight="500.0" minWidth="600.0" prefHeight="517.0" prefWidth="704.0" stylesheets="@main_app.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.GameController">
+<GridPane fx:id="mainLayout" minHeight="500.0" minWidth="600.0" prefHeight="517.0" prefWidth="704.0" stylesheets="@main_app.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.GameController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="140.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="300.0" />
@@ -29,7 +29,7 @@
          </padding>
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <GridPane fx:id="graphicTable" alignment="CENTER" hgap="2.0" style="-fx-background-radius: 2em; -fx-border-color: black; -fx-border-radius: 2em;" vgap="2.0">
+               <GridPane fx:id="graphicTable" alignment="CENTER" hgap="2.0" style="-fx-background-radius: 2em; -fx-border-color: black; -fx-border-radius: 2em; -fx-background-color: #bde75e" vgap="2.0">
                   <columnConstraints>
                      <ColumnConstraints />
                   </columnConstraints>
@@ -54,7 +54,7 @@
       </BorderPane>
       <VBox fx:id="leftBar" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.rowIndex="1">
          <children>
-            <Label id="chooseText" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="310.0" text="Choose your player" textAlignment="CENTER" />
+            <Label id="chooseText" fx:id="playerDescriptor" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="310.0" text="Choose your player" textAlignment="CENTER" />
             <ChoiceBox id="playerOneNameBox" fx:id="playerOneNameBox" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="170.0" />
             <ChoiceBox id="playerTwoNameBox" fx:id="playerTwoNameBox" maxWidth="1.7976931348623157E308" />
             <Button id="playBtn" fx:id="playButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPlay" prefHeight="25.0" text="PLAY" />

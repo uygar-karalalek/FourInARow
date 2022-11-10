@@ -30,4 +30,11 @@ public class Table {
         return coordinates;
     }
 
+    public void removeTokenFromColumn(int row, int col) {
+        if (this.getCells().get(col, row).getItem().get() != null) {
+            piles[col]++;
+            this.getCells().get(col, row).getItem().set(null);
+        }
+    }
+
 }

@@ -17,11 +17,15 @@ public class CellController {
     public Circle circle;
 
     public void updateCellGraphics(Token token, double wantedSize) {
-        String tokenColorFileAlias = token.getColor().name().toLowerCase() + "_token.png";
-        ImageView tokenImage = new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/"+tokenColorFileAlias)));
-        tokenImage.setFitWidth(wantedSize);
-        tokenImage.setFitHeight(wantedSize);
-        this.mainLayout.getChildren().add(tokenImage);
+        if (token == null) {
+            this.mainLayout.getChildren().remove(this.mainLayout.getChildren().size() - 1);
+        } else {
+            String tokenColorFileAlias = token.getColor().name().toLowerCase() + "_token.png";
+            ImageView tokenImage = new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/"+tokenColorFileAlias)));
+            tokenImage.setFitWidth(wantedSize);
+            tokenImage.setFitHeight(wantedSize);
+            this.mainLayout.getChildren().add(tokenImage);
+        }
     }
 
 }

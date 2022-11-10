@@ -4,15 +4,18 @@ import four_in_a_row.core.logic.win_logic.GameTableControl;
 import four_in_a_row.core.structure.Table;
 import four_in_a_row.core.structure.Token;
 
+import java.util.stream.IntStream;
+
 public class Game {
 
+    private boolean playing = false;
     public Player
             firstPlayer,
             secondPlayer,
             currentPlayer;
 
-    private final Token currTurnToken;
-    private final Table gameTable;
+    private Token currTurnToken;
+    private Table gameTable;
     private GameTableControl gameTableControl;
 
     public Game(Player firstPlayer,
@@ -51,4 +54,27 @@ public class Game {
     public GameTableControl getGameTableControl() {
         return gameTableControl;
     }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
+
+    public void resetGame() {
+        this.currentPlayer.setName(null);
+        this.firstPlayer.setName(null);
+        this.secondPlayer.setName(null);
+        this.playing = false;
+        this.currTurnToken = null;
+
+        IntStream.range(0, 6).forEach(row ->
+                IntStream.range(0, 7).forEach(col -> {
+                    this.gameTable.removeTokenFromColumn(row, col);
+                }));
+
+    }
+
 }

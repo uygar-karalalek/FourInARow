@@ -36,18 +36,16 @@ public class GameController {
     public ChoiceBox<String> playerOneNameBox;
     @FXML
     public ChoiceBox<String> playerTwoNameBox;
-
     @FXML
     public VBox leftBar;
-
-    public Label player1NameLabel, player2NameLabel;
-
     @FXML
     public BorderPane gameTablePane;
     @FXML
     public Button playButton;
     @FXML
-    public Label winnerLabel;
+    public Label winnerLabel, playerDescriptor;
+
+    public Label player1NameLabel, player2NameLabel;
 
     private Game game;
 
@@ -153,6 +151,20 @@ public class GameController {
 
     @FXML
     public void onPlay() {
+        if (this.game.isPlaying()) {
+            playIsFinished();
+            this.playerDescriptor.setText("Choose your player");
+            this.leftBar.getChildren().remove(1, 3);
+            this.leftBar.getChildren().addAll(1, List.of(this.playerOneNameBox, this.playerTwoNameBox));
+            this.gameTablePane.setDisable(true);
+            this.gameTablePane.setOpacity(0.29);
+        }
+        else initializeGame();
+    }
+
+    private void initializeGame() {
+        this.playerDescriptor.setText("Players are");
+
         String player1Name = this.playerOneNameBox.getValue();
         this.game.firstPlayer.setName(player1Name);
         String player2Name = this.playerTwoNameBox.getValue();
@@ -161,12 +173,18 @@ public class GameController {
         this.player1NameLabel = new Label(player1Name);
         this.player2NameLabel = new Label(player2Name);
 
-        this.leftBar.getChildren().remove(0, 3);
-        this.leftBar.getChildren().addAll(0, List.of(this.player1NameLabel, this.player2NameLabel));
+        this.leftBar.getChildren().remove(1, 3);
+        this.leftBar.getChildren().addAll(1, List.of(this.player1NameLabel, this.player2NameLabel));
 
         this.playButton.setText("Play again");
         this.gameTablePane.setDisable(false);
         this.gameTablePane.setOpacity(1);
+
+        this.game.setPlaying(true);
+    }
+
+    public void playIsFinished() {
+        this.game.resetGame();
     }
 
     @FXML
