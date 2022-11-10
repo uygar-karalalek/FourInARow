@@ -1,3 +1,9 @@
+#player1NameLabel, #player2NameLabel {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14pt;
+    -fx-text-fill: #ef2559;
+}
+
 .root {
     -fx-background-color: #d6cca5;
 }

@@ -29,7 +29,7 @@
          </padding>
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <GridPane fx:id="graphicTable" alignment="CENTER" hgap="2.0" style="-fx-background-radius: 2em; -fx-border-color: black; -fx-border-radius: 2em; -fx-background-color: #bde75e" vgap="2.0">
+               <GridPane fx:id="graphicTable" alignment="CENTER" hgap="2.0" style="-fx-background-radius: 2em; -fx-border-color: black; -fx-border-radius: 2em; -fx-background-color: #9cb5ff" vgap="2.0">
                   <columnConstraints>
                      <ColumnConstraints />
                   </columnConstraints>
@@ -49,12 +49,15 @@
             </StackPane>
          </center>
          <top>
-            <Label id="winnerLbl" fx:id="winnerLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="408.0" text="Winner" BorderPane.alignment="CENTER" />
+            <Label id="winnerLbl" fx:id="winnerLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="408.0" text="Winner" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="20.0" />
+               </BorderPane.margin></Label>
          </top>
       </BorderPane>
       <VBox fx:id="leftBar" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.rowIndex="1">
          <children>
-            <Label id="chooseText" fx:id="playerDescriptor" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="310.0" text="Choose your player" textAlignment="CENTER" />
+            <Label id="chooseText" fx:id="playerDescriptor" alignment="BOTTOM_LEFT" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="310.0" text="Choose your player" textAlignment="CENTER" />
             <ChoiceBox id="playerOneNameBox" fx:id="playerOneNameBox" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="170.0" />
             <ChoiceBox id="playerTwoNameBox" fx:id="playerTwoNameBox" maxWidth="1.7976931348623157E308" />
             <Button id="playBtn" fx:id="playButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPlay" prefHeight="25.0" text="PLAY" />

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
@@ -45,7 +46,7 @@ public class GameController {
     @FXML
     public Label winnerLabel, playerDescriptor;
 
-    public Label player1NameLabel, player2NameLabel;
+    public HBox player1NameLabelBox, player2NameLabelBox;
 
     private Game game;
 
@@ -67,8 +68,8 @@ public class GameController {
         IntStream.range(0, Table.WIDTH).forEach(col ->
                 columnsMouseDetectionPane.getChildren().get(col)
                         .setOnMouseClicked(ev -> {
-                            TableCoordinates coordinates = game.turnExecution(col);
                             Player current = game.getCurrentPlayer();
+                            TableCoordinates coordinates = game.turnExecution(col);
                             Set<TableCoordinates> tableCoordinates =
                                     game.getGameTableControl().controlBasedOnPivot(coordinates);
                             if (tableCoordinates.size() >= 4) {
@@ -151,6 +152,8 @@ public class GameController {
 
     @FXML
     public void onPlay() {
+        this.winnerLabel.setOpacity(0);
+
         if (this.game.isPlaying()) {
             playIsFinished();
             this.playerDescriptor.setText("Choose your player");
@@ -170,11 +173,25 @@ public class GameController {
         String player2Name = this.playerTwoNameBox.getValue();
         this.game.secondPlayer.setName(player2Name);
 
-        this.player1NameLabel = new Label(player1Name);
-        this.player2NameLabel = new Label(player2Name);
+        this.player1NameLabelBox = new HBox(10,
+                new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/red_token.png"))) {
+                    {
+                        this.setFitWidth(30);
+                        this.setFitHeight(30);
+                    }
+                },
+                new Label(player1Name) { { this.setId("player1NameLabel"); } });
+        this.player2NameLabelBox = new HBox(10,
+                new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/blue_token.png"))) {
+                    {
+                        this.setFitWidth(30);
+                        this.setFitHeight(30);
+                    }
+                },
+                new Label(player2Name) { { this.setId("player2NameLabel"); } });
 
         this.leftBar.getChildren().remove(1, 3);
-        this.leftBar.getChildren().addAll(1, List.of(this.player1NameLabel, this.player2NameLabel));
+        this.leftBar.getChildren().addAll(1, List.of(this.player1NameLabelBox, this.player2NameLabelBox));
 
         this.playButton.setText("Play again");
         this.gameTablePane.setDisable(false);
