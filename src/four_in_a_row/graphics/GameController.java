@@ -7,7 +7,6 @@ import four_in_a_row.core.structure.Cell;
 import four_in_a_row.core.structure.Table;
 import four_in_a_row.data.ApplicationProperties;
 import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -34,9 +33,9 @@ public class GameController {
     @FXML
     public HBox columnsMouseDetectionPane;
     @FXML
-    public ChoiceBox<String> playerOneNameBox;
+    public PlayerSelector playerOneNameBox;
     @FXML
-    public ChoiceBox<String> playerTwoNameBox;
+    public PlayerSelector playerTwoNameBox;
     @FXML
     public VBox leftBar;
     @FXML
@@ -52,15 +51,12 @@ public class GameController {
 
     public void init() {
         createTable();
+        String[] playerNames = ApplicationProperties.getProperty("firstPlayerName").split(",");
 
-        String[] firstPlayerName = ApplicationProperties.getProperty("firstPlayerName").split(",");
-        String[] secondPlayerName = ApplicationProperties.getProperty("secondPlayerName").split(",");
-
-        playerOneNameBox.setItems(FXCollections.observableArrayList(firstPlayerName));
-        playerTwoNameBox.setItems(FXCollections.observableArrayList(secondPlayerName));
-
-        playerOneNameBox.getSelectionModel().select(0);
-        playerTwoNameBox.getSelectionModel().select(0);
+        playerOneNameBox.setPlayerNames(playerNames);
+        playerTwoNameBox.setPlayerNames(playerNames);
+        playerOneNameBox.initializeSelector(playerTwoNameBox);
+        playerTwoNameBox.initializeSelector(playerOneNameBox);
 
         graphicTable.widthProperty().addListener(this::onSizeChanged);
         graphicTable.heightProperty().addListener(this::onSizeChanged);
@@ -79,6 +75,10 @@ public class GameController {
                                 this.gameTablePane.setOpacity(0.5);
                             }
                         }));
+    }
+
+    private void deleteSelectedItem(ChoiceBox<String> otherBox, String item) {
+        otherBox.getItems().remove(item);
     }
 
     private void onSizeChanged(Observable observable) {
@@ -108,8 +108,8 @@ public class GameController {
             if (node instanceof Circle)
                 ((Circle) node).setRadius(tokenSlotSize / 2 - BORDER_WIDTH);
             else if (node instanceof ImageView) {
-                ((ImageView) node).setFitWidth(tokenSlotSize - BORDER_WIDTH);
-                ((ImageView) node).setFitHeight(tokenSlotSize - BORDER_WIDTH);
+                ((ImageView) node).setFitWidth(tokenSlotSize - BORDER_WIDTH * 2);
+                ((ImageView) node).setFitHeight(tokenSlotSize - BORDER_WIDTH * 2);
             }
         });
 
@@ -137,8 +137,9 @@ public class GameController {
                         Cell cell = new Cell(coordinates);
                         game.getGameTable().setCell(coordinates, cell);
 
-                        cell.getItem().addListener((obs, token, newToken) ->
-                                cellController.updateCellGraphics(newToken, getTokenSlotSize() - 10));
+                        cell.getItem().addListener((obs, token, newToken) -> {
+                            cellController.updateCellGraphics(newToken, getTokenSlotSize() - BORDER_WIDTH * 2);
+                                });
 
                     } catch (IOException e) {
                         e.printStackTrace();
