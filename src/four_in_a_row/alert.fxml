@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="168.0" prefWidth="388.0" style="-fx-background-color: radial-gradient(focus-distance 20% , center 70% 60% , radius 90% , #7cfc00, #00ffff); -fx-background-radius: 2em;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.AlertController">
+   <children>
+      <Label layoutX="71.0" layoutY="66.0" style="-fx-text-fill: black; -fx-font-family: Arial; -fx-font-size: 12;" text="YOU MUST HAVE A NAME FOR EACH PLAYER!" />
+      <Button layoutX="146.0" layoutY="105.0" mnemonicParsing="false" onAction="#onClose" style="-fx-background-color: #0fffff; -fx-font-family: Dubai; -fx-border-color: black;" text="UNDERSTOOD">
+         <font>
+            <Font name="Dubai Regular" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

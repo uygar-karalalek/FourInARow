@@ -41,14 +41,16 @@
 }
 
 #playerOneNameBox > .label {
-    -fx-background-color: #7a4c06;
+    -fx-text-fill: white;
+    -fx-background-color: #b20836;
     -fx-background-radius: 2pt;
     -fx-border-color: black;
     -fx-border-radius: 2pt;
 }
 
 #playerTwoNameBox > .label {
-    -fx-background-color: #a0a0d0;
+    -fx-text-fill: white;
+    -fx-background-color: #164885;
     -fx-background-radius: 2pt;
     -fx-border-color: black;
     -fx-border-radius: 2pt;

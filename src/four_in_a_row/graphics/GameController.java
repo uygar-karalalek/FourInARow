@@ -1,8 +1,8 @@
 package four_in_a_row.graphics;
 
+import four_in_a_row.core.logic.Game;
 import four_in_a_row.core.logic.Player;
 import four_in_a_row.core.logic.TableCoordinates;
-import four_in_a_row.core.logic.Game;
 import four_in_a_row.core.structure.Cell;
 import four_in_a_row.core.structure.Table;
 import four_in_a_row.data.ApplicationProperties;
@@ -10,9 +10,7 @@ import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
@@ -27,15 +25,11 @@ public class GameController {
     public static final int BORDER_WIDTH = 5;
 
     @FXML
-    public GridPane mainLayout;
-    @FXML
-    public GridPane graphicTable;
+    public GridPane mainLayout, graphicTable;
     @FXML
     public HBox columnsMouseDetectionPane;
     @FXML
-    public PlayerSelector playerOneNameBox;
-    @FXML
-    public PlayerSelector playerTwoNameBox;
+    public PlayerSelector playerOneNameBox, playerTwoNameBox;
     @FXML
     public VBox leftBar;
     @FXML
@@ -62,23 +56,21 @@ public class GameController {
         graphicTable.heightProperty().addListener(this::onSizeChanged);
 
         IntStream.range(0, Table.WIDTH).forEach(col ->
-                columnsMouseDetectionPane.getChildren().get(col)
-                        .setOnMouseClicked(ev -> {
-                            Player current = game.getCurrentPlayer();
-                            TableCoordinates coordinates = game.turnExecution(col);
-                            Set<TableCoordinates> tableCoordinates =
-                                    game.getGameTableControl().controlBasedOnPivot(coordinates);
-                            if (tableCoordinates.size() >= 4) {
-                                this.winnerLabel.setOpacity(1);
-                                this.winnerLabel.setText("Player " + current.getName() +" won!");
-                                this.gameTablePane.setDisable(true);
-                                this.gameTablePane.setOpacity(0.5);
-                            }
-                        }));
+                columnsMouseDetectionPane.getChildren().get(col).setOnMouseClicked(ev -> onMouseClicked(col)));
     }
 
-    private void deleteSelectedItem(ChoiceBox<String> otherBox, String item) {
-        otherBox.getItems().remove(item);
+    private void onMouseClicked(int clickedColumn) {
+        Player current = game.getCurrentPlayer();
+        TableCoordinates coordinates = game.turnExecution(clickedColumn);
+        Set<TableCoordinates> tableCoordinates = game.getGameTableControl().controlBasedOnPivot(coordinates);
+        if (tableCoordinates.size() >= 4) onPlayerWinning(current);
+    }
+
+    private void onPlayerWinning(Player current) {
+        this.winnerLabel.setOpacity(1);
+        this.winnerLabel.setText("Player " + current.getName() +" won!");
+        this.gameTablePane.setDisable(true);
+        this.gameTablePane.setOpacity(0.5);
     }
 
     private void onSizeChanged(Observable observable) {
@@ -152,57 +144,46 @@ public class GameController {
     }
 
     @FXML
-    public void onPlay() {
+    public void onPlayClicked() {
         this.winnerLabel.setOpacity(0);
 
-        if (this.game.isPlaying()) {
-            playIsFinished();
-            this.playerDescriptor.setText("Choose your player");
-            this.leftBar.getChildren().remove(1, 3);
-            this.leftBar.getChildren().addAll(1, List.of(this.playerOneNameBox, this.playerTwoNameBox));
-            this.gameTablePane.setDisable(true);
-            this.gameTablePane.setOpacity(0.29);
-        }
-        else initializeGame();
+        if (this.game.isPlaying()) endGame();
+        else beginGame();
     }
 
-    private void initializeGame() {
+    private void beginGame() {
+
         this.playerDescriptor.setText("Players are");
 
         String player1Name = this.playerOneNameBox.getValue();
-        this.game.firstPlayer.setName(player1Name);
         String player2Name = this.playerTwoNameBox.getValue();
-        this.game.secondPlayer.setName(player2Name);
 
-        this.player1NameLabelBox = new HBox(10,
-                new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/red_token.png"))) {
-                    {
-                        this.setFitWidth(30);
-                        this.setFitHeight(30);
-                    }
-                },
-                new Label(player1Name) { { this.setId("player1NameLabel"); } });
-        this.player2NameLabelBox = new HBox(10,
-                new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/blue_token.png"))) {
-                    {
-                        this.setFitWidth(30);
-                        this.setFitHeight(30);
-                    }
-                },
-                new Label(player2Name) { { this.setId("player2NameLabel"); } });
+        if (GameSpecificsValidation.validationPasses(player1Name, player2Name)) {
+            this.game.firstPlayer.setName(player1Name);
+            this.game.secondPlayer.setName(player2Name);
 
-        this.leftBar.getChildren().remove(1, 3);
-        this.leftBar.getChildren().addAll(1, List.of(this.player1NameLabelBox, this.player2NameLabelBox));
+            this.player1NameLabelBox = new PlayerNameBoxRepresentation(player1Name, "red_token.png", "player1NameLabel");
+            this.player2NameLabelBox = new PlayerNameBoxRepresentation(player2Name, "blue_token.png", "player2NameLabel");
 
-        this.playButton.setText("Play again");
-        this.gameTablePane.setDisable(false);
-        this.gameTablePane.setOpacity(1);
+            this.leftBar.getChildren().remove(1, 3);
+            this.leftBar.getChildren().addAll(1, List.of(this.player1NameLabelBox, this.player2NameLabelBox));
 
-        this.game.setPlaying(true);
+            this.playButton.setText("Play again");
+            this.gameTablePane.setDisable(false);
+            this.gameTablePane.setOpacity(1);
+
+            this.game.setPlaying(true);
+        }
     }
 
-    public void playIsFinished() {
+    public void endGame() {
         this.game.resetGame();
+        this.playerDescriptor.setText("Choose your player");
+        this.playButton.setText("Play");
+        this.leftBar.getChildren().remove(1, 3);
+        this.leftBar.getChildren().addAll(1, List.of(this.playerOneNameBox, this.playerTwoNameBox));
+        this.gameTablePane.setDisable(true);
+        this.gameTablePane.setOpacity(0.29);
     }
 
     @FXML
