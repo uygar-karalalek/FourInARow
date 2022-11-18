@@ -37,7 +37,7 @@
                      <RowConstraints />
                   </rowConstraints>
                </GridPane>
-               <HBox fx:id="columnsMouseDetectionPane" alignment="CENTER" opacity="0.29" prefHeight="100.0" prefWidth="200.0" spacing="2.0">
+               <HBox fx:id="columnsMouseDetectionPane" alignment="CENTER" style="-fx-background-color: transparent" prefHeight="100.0" prefWidth="200.0" spacing="2.0">
                   <Pane prefHeight="200.0" prefWidth="200.0" />
                   <Pane prefHeight="200.0" prefWidth="200.0" />
                   <Pane prefHeight="200.0" prefWidth="200.0" />

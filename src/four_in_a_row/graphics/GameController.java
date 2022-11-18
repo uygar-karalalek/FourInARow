@@ -117,16 +117,19 @@ public class GameController {
                     try {
 
                         TableCoordinates coordinates = new TableCoordinates(col, row);
+                        Cell cell = new Cell(coordinates);
+
                         FXMLLoader loader = new FXMLLoader();
                         loader.load(getClass().getResourceAsStream("../cell.fxml"));
 
                         CellController cellController = loader.getController();
+                        cellController.setCell(cell);
+                        cellController.setRelatedColumn((Pane) columnsMouseDetectionPane.getChildren().get(col));
 
                         graphicTable.add(cellController.mainLayout, coordinates.getX(), coordinates.getY());
 
                         updateItemSizeBasedOnTable(cellController.mainLayout);
 
-                        Cell cell = new Cell(coordinates);
                         game.getGameTable().setCell(coordinates, cell);
 
                         cell.getItem().addListener((obs, token, newToken) -> {
