@@ -23,10 +23,17 @@ public class TokenAnimation {
         representedToken.setOpacity(1);
         representedToken.setLayoutX(GameController.BORDER_WIDTH);
         representedToken.setLayoutY(0);
+
         TranslateTransition translateTransition = new TranslateTransition();
         translateTransition.setNode(representedToken);
         translateTransition.setToY(endNode.getLayoutY() + GameController.BORDER_WIDTH);
         translateTransition.setInterpolator(Interpolator.EASE_IN);
+        translateTransition.setOnFinished(actionEvent -> {
+            representedToken.setTranslateX(0);
+            representedToken.setTranslateY(0);
+            relatedColumn.getChildren().remove(representedToken);
+            endNode.getChildren().add(representedToken);
+        });
         translateTransition.play();
     }
 

@@ -1,6 +1,5 @@
 package four_in_a_row.graphics;
 
-import four_in_a_row.core.logic.win_logic.GameTableControl;
 import four_in_a_row.core.structure.Cell;
 import four_in_a_row.core.structure.Table;
 import four_in_a_row.core.structure.Token;
@@ -34,7 +33,7 @@ public class CellController {
         } else {
 
             String tokenColorFileAlias = token.getColor().name().toLowerCase() + "_token.png";
-            ImageView tokenImage = new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/"+tokenColorFileAlias)));
+            ImageView tokenImage = new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/" + tokenColorFileAlias)));
             tokenImage.setFitWidth(wantedSize);
             tokenImage.setFitHeight(wantedSize);
             TokenAnimation animation = new TokenAnimation(tokenImage, relatedColumn, mainLayout);
