@@ -1,16 +1,16 @@
 package four_in_a_row.graphics;
 
 import four_in_a_row.core.structure.Cell;
-import four_in_a_row.core.structure.Table;
 import four_in_a_row.core.structure.Token;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
+
+import java.io.InputStream;
+import java.util.Objects;
 
 public class CellController {
 
@@ -24,20 +24,18 @@ public class CellController {
 
     public void updateCellGraphics(Token token, double wantedSize) {
         if (token == null) {
-
-            int indexToRemove = (Table.HEIGHT - 1) - cell.getCoordinates().getY();
-            ObservableList<Node> children = relatedColumn.getChildren();
-            if (indexToRemove >= 0 && indexToRemove < children.size() && !relatedColumn.getChildren().isEmpty())
-                this.relatedColumn.getChildren().remove(indexToRemove);
-
+            this.mainLayout.getChildren().remove(this.mainLayout.getChildren().size() - 1);
         } else {
-
             String tokenColorFileAlias = token.getColor().name().toLowerCase() + "_token.png";
-            ImageView tokenImage = new ImageView(new Image(getClass().getResourceAsStream("/four_in_a_row/img/" + tokenColorFileAlias)));
+            InputStream inputStream = Objects.requireNonNull(getClass().getResourceAsStream("/four_in_a_row/img/" + tokenColorFileAlias));
+            ImageView tokenImage = new ImageView(new Image(inputStream));
+
+            tokenImage.setOpacity(1);
             tokenImage.setFitWidth(wantedSize);
             tokenImage.setFitHeight(wantedSize);
+
             TokenAnimation animation = new TokenAnimation(tokenImage, relatedColumn, mainLayout);
-            animation.animateToken();
+            animation.playAnimation();
         }
     }
 

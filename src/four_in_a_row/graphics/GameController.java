@@ -61,6 +61,11 @@ public class GameController {
 
     private void onMouseClicked(int clickedColumn) {
         Player current = game.getCurrentPlayer();
+
+        // If the table has an item at the top of the stack of a column, that means the column is full,
+        // then it is impossible to add more tokens!
+        if (game.getGameTable().getCells().get(clickedColumn, 0).getItem().get() != null) return;
+
         TableCoordinates coordinates = game.turnExecution(clickedColumn);
         Set<TableCoordinates> tableCoordinates = game.getGameTableControl().controlBasedOnPivot(coordinates);
         if (tableCoordinates.size() >= 4) onPlayerWinning(current);

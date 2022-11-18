@@ -8,33 +8,43 @@ import javafx.scene.layout.StackPane;
 
 public class TokenAnimation {
 
-    private ImageView representedToken;
-    private Pane relatedColumn;
-    private StackPane endNode;
+    private final ImageView representedToken;
+    private final Pane relatedColumn;
+    private final StackPane endNode;
+    private TranslateTransition animation;
 
     public TokenAnimation(ImageView representedToken, Pane pathSection, StackPane endNode) {
         this.representedToken = representedToken;
         this.relatedColumn = pathSection;
         this.endNode = endNode;
+        setupAnimation();
     }
 
-    public void animateToken() {
-        relatedColumn.getChildren().add(representedToken);
-        representedToken.setOpacity(1);
-        representedToken.setLayoutX(GameController.BORDER_WIDTH);
-        representedToken.setLayoutY(0);
+    public void playAnimation() {
+        placeCorrectlyTheObjects();
+        animation.play();
+    }
 
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setNode(representedToken);
-        translateTransition.setToY(endNode.getLayoutY() + GameController.BORDER_WIDTH);
-        translateTransition.setInterpolator(Interpolator.EASE_IN);
-        translateTransition.setOnFinished(actionEvent -> {
-            representedToken.setTranslateX(0);
+    private void setupAnimation() {
+        animation = new TranslateTransition();
+        animation.setNode(representedToken);
+        animation.setToY(endNode.getLayoutY() + GameController.BORDER_WIDTH);
+        animation.setInterpolator(Interpolator.EASE_IN);
+
+        animation.setOnFinished(actionEvent -> {
+            // Since at the end, the token will be within a
+            // different Y transition, this line of code setups
+            // the initial value of all Nodes translateY property, that is, zero
             representedToken.setTranslateY(0);
             relatedColumn.getChildren().remove(representedToken);
             endNode.getChildren().add(representedToken);
         });
-        translateTransition.play();
+    }
+
+    private void placeCorrectlyTheObjects() {
+        relatedColumn.getChildren().add(representedToken);
+        representedToken.setLayoutX(GameController.BORDER_WIDTH);
+        representedToken.setLayoutY(0);
     }
 
 }
