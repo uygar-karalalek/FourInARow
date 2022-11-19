@@ -1,5 +1,6 @@
 package four_in_a_row.graphics;
 
+import four_in_a_row.Main;
 import four_in_a_row.core.logic.Game;
 import four_in_a_row.core.logic.Player;
 import four_in_a_row.core.logic.TableCoordinates;
@@ -11,12 +12,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -45,6 +48,7 @@ public class GameController {
 
     public void init() {
         createTable();
+
         String[] playerNames = ApplicationProperties.getProperty("firstPlayerName").split(",");
 
         playerOneNameBox.setPlayerNames(playerNames);

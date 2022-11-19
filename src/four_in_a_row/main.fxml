@@ -29,7 +29,7 @@
          </padding>
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <GridPane fx:id="graphicTable" alignment="CENTER" hgap="2.0" style="-fx-background-radius: 2em; -fx-border-color: black; -fx-border-radius: 2em; -fx-background-color: #9cb5ff" vgap="2.0">
+               <GridPane fx:id="graphicTable" id="graphicTable" alignment="CENTER" hgap="2.0" vgap="2.0">
                   <columnConstraints>
                      <ColumnConstraints />
                   </columnConstraints>

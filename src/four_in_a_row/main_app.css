@@ -4,6 +4,16 @@
     -fx-text-fill: #ef2559;
 }
 
+#graphicTable {
+    -fx-background-image: url("./img/four_in_row_bg_pattern.jpg");
+    -fx-background-radius: 2em;
+    -fx-shape:"M 0 0 L 0 -5 C 0 -6 0 -6 1 -6 L 11 -6 C 12 -6 12 -6 12 -5 L 12 0 C 12 1 12 1 11 1 L 1 1 C 0 1 0 1 0 0";
+    -fx-background-position: center center;
+    -fx-background-repeat: repeat;
+    -fx-border-color: black;
+    -fx-border-radius: 2em;
+}
+
 .root {
     -fx-background-color: #d6cca5;
 }
