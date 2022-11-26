@@ -57,16 +57,9 @@ public class SearchResults {
         int secondCoordSearchSize = getSizeOfCoordinateSearchResult(secondResultToCheck);
         int coupleSize = Math.addExact(firstCoordSearchSize, secondCoordSearchSize);
 
-        if (coupleSize == 3) {
+        if (coupleSize >= 3) {
             coordSet.addAll(coordSearchResults.get(firstResultToCheck).getSearchResult());
             coordSet.addAll(coordSearchResults.get(secondResultToCheck).getSearchResult());
-        }
-
-        else if (coupleSize >= 4) {
-            if (resultNotEmpty(firstResultToCheck))
-                coordSet.add(coordSearchResults.get(firstResultToCheck).getSearchResultCoords( firstCoordSearchSize - 1));
-            if (resultNotEmpty(secondResultToCheck))
-                coordSet.add(coordSearchResults.get(secondResultToCheck).getSearchResultCoords( secondCoordSearchSize - 1));
         }
     }
 

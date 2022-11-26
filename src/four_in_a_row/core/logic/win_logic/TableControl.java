@@ -18,8 +18,7 @@ public class TableControl {
     }
 
     public Set<TableCoordinates> controlFourInARow(TableCoordinates initCoordsToCheck, ControlFactorType... controlFactors) {
-        SearchResults searchResults = new SearchResults(
-                initCoordsToCheck, controlFactors, controlColor, cells);
+        SearchResults searchResults = new SearchResults(initCoordsToCheck, controlFactors, controlColor, cells);
 
         IntStream.iterate(1, currEmptySearchObject -> !searchResults.getAvailableControls().isEmpty(),
                         currEmptySearchObject -> currEmptySearchObject + 1)
