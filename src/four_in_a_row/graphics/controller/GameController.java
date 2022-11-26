@@ -137,7 +137,7 @@ public class GameController {
                         Cell cell = new Cell(coordinates);
 
                         FXMLLoader loader = new FXMLLoader();
-                        loader.load(getClass().getResourceAsStream("../cell.fxml"));
+                        loader.load(getClass().getResourceAsStream("../../cell.fxml"));
 
                         CellController cellController = loader.getController();
                         cellController.setCell(cell);
