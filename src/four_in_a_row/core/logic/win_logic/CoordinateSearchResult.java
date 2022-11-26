@@ -23,10 +23,6 @@ public class CoordinateSearchResult {
         return controlAvailable;
     }
 
-    public void setControlAvailable(boolean controlAvailable) {
-        this.controlAvailable = controlAvailable;
-    }
-
     public List<TableCoordinates> getSearchResult() {
         return searchResult;
     }
@@ -36,23 +32,24 @@ public class CoordinateSearchResult {
     }
 
     public void control(Cells cells, TableCoordinates start, int cycle) {
+        if (controlAvailable) {
+            int row = start.getY(), col = start.getX();
 
-        int row = start.getY(), col = start.getX();
+            int xIncrement = this.controlFactorType.getXFactor() * cycle;
+            int yIncrement = this.controlFactorType.getYFactor() * cycle;
+            int newX = col + xIncrement, newY = row + yIncrement;
 
-        int xIncrement = this.controlFactorType.getXFactor() * cycle;
-        int yIncrement = this.controlFactorType.getYFactor() * cycle;
-        int newX = col + xIncrement, newY = row + yIncrement;
+            TableCoordinates coordinates = new TableCoordinates(newX, newY);
 
-        TableCoordinates coordinates = new TableCoordinates(newX, newY);
+            if (TableCoordinates.areXCoordsValid(newX)
+                    && TableCoordinates.areYCoordsValid(newY)
+                    && cells.isCellNotEmpty(coordinates)
+                    && cells.getCellColor(newX, newY) == this.tokenColor) {
+                this.searchResult.add(coordinates);
+            }
 
-        if (TableCoordinates.areXCoordsValid(newX)
-                && TableCoordinates.areYCoordsValid(newY)
-                && cells.isCellNotEmpty(coordinates)
-                && cells.getCellColor(newX, newY) == this.tokenColor) {
-            this.searchResult.add(coordinates);
+            else controlAvailable = false;
         }
-
-        else controlAvailable = false;
     }
 
 }

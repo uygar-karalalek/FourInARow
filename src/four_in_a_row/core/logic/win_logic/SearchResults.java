@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SearchResults {
@@ -41,10 +42,9 @@ public class SearchResults {
         return coordSet;
     }
 
-    public boolean areControlsAvailable() {
+    public List<CoordinateSearchResult> getAvailableControls() {
         return coordSearchResults.stream()
-                .map(CoordinateSearchResult::isControlAvailable)
-                .reduce((first, second) -> first || second).get();
+                .filter(CoordinateSearchResult::isControlAvailable).collect(Collectors.toList());
     }
 
     public void controlCoordinateCouple(int firstResultToCheck, int cycle) {

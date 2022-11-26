@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
 
 public class TableControl {
 
-    private final Cells cells;
-    private final TokenColor controlColor;
+    private Cells cells;
+    private TokenColor controlColor;
 
     public TableControl(Cells cells, TokenColor controlColor) {
         this.cells = cells;
@@ -21,13 +21,13 @@ public class TableControl {
         SearchResults searchResults = new SearchResults(
                 initCoordsToCheck, controlFactors, controlColor, cells);
 
-        IntStream.iterate(1, currEmptySearchObject -> searchResults.areControlsAvailable(),
+        IntStream.iterate(1, currEmptySearchObject -> !searchResults.getAvailableControls().isEmpty(),
                         currEmptySearchObject -> currEmptySearchObject + 1)
 
                 .forEach(cycle -> IntStream.iterate(0,
                                 currentSearchTypeIndex -> currentSearchTypeIndex < searchResults.getCoordSearchResults().size() - 1,
                                 currentSearchTypeIndex -> currentSearchTypeIndex + 2)
-                                .forEach(currentSearchTypeIndex -> searchResults.controlCoordinateCouple(currentSearchTypeIndex, cycle)));
+                        .forEach(currentSearchTypeIndex -> searchResults.controlCoordinateCouple(currentSearchTypeIndex, cycle)));
 
         return searchResults.getCoordSet();
     }
