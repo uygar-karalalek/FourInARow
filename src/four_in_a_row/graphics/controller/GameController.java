@@ -1,25 +1,25 @@
-package four_in_a_row.graphics;
+package four_in_a_row.graphics.controller;
 
-import four_in_a_row.Main;
 import four_in_a_row.core.logic.Game;
 import four_in_a_row.core.logic.Player;
 import four_in_a_row.core.logic.TableCoordinates;
 import four_in_a_row.core.structure.Cell;
 import four_in_a_row.core.structure.Table;
 import four_in_a_row.data.ApplicationProperties;
+import four_in_a_row.graphics.GameSpecificsValidation;
+import four_in_a_row.graphics.PlayerNameBoxRepresentation;
+import four_in_a_row.graphics.PlayerSelector;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -59,6 +59,7 @@ public class GameController {
         graphicTable.widthProperty().addListener(this::onSizeChanged);
         graphicTable.heightProperty().addListener(this::onSizeChanged);
 
+        graphicTable.getChildren().forEach(node -> node.setOpacity(0.5));
         IntStream.range(0, Table.WIDTH).forEach(col ->
                 columnsMouseDetectionPane.getChildren().get(col).setOnMouseClicked(ev -> onMouseClicked(col)));
     }
@@ -72,14 +73,21 @@ public class GameController {
 
         TableCoordinates coordinates = game.turnExecution(clickedColumn);
         Set<TableCoordinates> tableCoordinates = game.getGameTableControl().controlBasedOnPivot(coordinates);
-        if (tableCoordinates.size() >= 4) onPlayerWinning(current);
+        if (tableCoordinates.size() >= 4) {
+            onPlayerWinning(current);
+
+            graphicTable.getChildren().forEach(node -> node.setOpacity(0.5));
+            tableCoordinates.forEach(winningCoords -> {
+                StackPane cell = (StackPane) graphicTable.getChildren().get(winningCoords.toGridAbsoluteValue());
+                cell.setOpacity(1);
+            });
+        }
     }
 
     private void onPlayerWinning(Player current) {
         this.winnerLabel.setOpacity(1);
-        this.winnerLabel.setText("Player " + current.getName() +" won!");
+        this.winnerLabel.setText("Player " + current.getName() + " won!");
         this.gameTablePane.setDisable(true);
-        this.gameTablePane.setOpacity(0.5);
     }
 
     private void onSizeChanged(Observable observable) {
@@ -141,9 +149,8 @@ public class GameController {
 
                         game.getGameTable().setCell(coordinates, cell);
 
-                        cell.getItem().addListener((obs, token, newToken) -> {
-                            cellController.updateCellGraphics(newToken, getTokenSlotSize() - BORDER_WIDTH * 2);
-                                });
+                        cell.getItem().addListener((obs, token, newToken) ->
+                                cellController.updateCellGraphics(newToken, getTokenSlotSize() - BORDER_WIDTH * 2));
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -182,7 +189,7 @@ public class GameController {
 
             this.playButton.setText("Play again");
             this.gameTablePane.setDisable(false);
-            this.gameTablePane.setOpacity(1);
+            this.graphicTable.getChildren().forEach(node -> node.setOpacity(1));
 
             this.game.setPlaying(true);
         }
@@ -195,7 +202,7 @@ public class GameController {
         this.leftBar.getChildren().remove(1, 3);
         this.leftBar.getChildren().addAll(1, List.of(this.playerOneNameBox, this.playerTwoNameBox));
         this.gameTablePane.setDisable(true);
-        this.gameTablePane.setOpacity(0.29);
+        this.graphicTable.getChildren().forEach(node -> node.setOpacity(0.5));
     }
 
     @FXML

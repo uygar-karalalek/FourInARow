@@ -1,7 +1,8 @@
-package four_in_a_row.graphics;
+package four_in_a_row.graphics.controller;
 
 import four_in_a_row.core.structure.Cell;
 import four_in_a_row.core.structure.Token;
+import four_in_a_row.graphics.TokenAnimation;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

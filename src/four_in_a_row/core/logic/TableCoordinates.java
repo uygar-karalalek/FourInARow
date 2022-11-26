@@ -37,6 +37,10 @@ public class TableCoordinates {
         return y >= 0 && y < Table.HEIGHT;
     }
 
+    public int toGridAbsoluteValue() {
+        return this.getX() + Table.WIDTH * this.getY();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

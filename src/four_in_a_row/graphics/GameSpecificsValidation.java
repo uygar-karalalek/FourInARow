@@ -1,6 +1,7 @@
 package four_in_a_row.graphics;
 
 import four_in_a_row.Main;
+import four_in_a_row.graphics.controller.AlertController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

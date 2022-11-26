@@ -1,5 +1,6 @@
 package four_in_a_row.graphics;
 
+import four_in_a_row.graphics.controller.GameController;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;

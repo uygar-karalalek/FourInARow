@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Circle?>
 
-<StackPane fx:id="mainLayout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="223.0" prefWidth="219.0" style="-fx-border-color: #17565d; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.CellController">
+<StackPane fx:id="mainLayout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="223.0" prefWidth="219.0" style="-fx-border-color: #17565d; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.controller.CellController">
    <children>
       <Circle fx:id="circle" fill="#00ffff55" radius="100.0" stroke="#1b806b" strokeType="INSIDE" style="-fx-stroke: radial-gradient(radius 180%, #000000, derive(#4297a8, -30%), derive(burlywood, 30%)); -fx-stroke-width: 5;">
          <StackPane.margin>

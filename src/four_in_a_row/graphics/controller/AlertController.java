@@ -1,4 +1,4 @@
-package four_in_a_row.graphics;
+package four_in_a_row.graphics.controller;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
