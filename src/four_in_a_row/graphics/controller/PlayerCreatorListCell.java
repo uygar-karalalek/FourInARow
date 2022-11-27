@@ -1,6 +1,7 @@
 package four_in_a_row.graphics.controller;
 
 import four_in_a_row.core.logic.Player;
+import four_in_a_row.graphics.use_case.ParentAndControllerRetrieverUseCase;
 import javafx.scene.control.ListCell;
 
 public class PlayerCreatorListCell extends ListCell<Player> {
@@ -10,9 +11,16 @@ public class PlayerCreatorListCell extends ListCell<Player> {
         super.updateItem(player, empty);
 
         if (empty) {
-            setText(null);
-            // Create the graphics
-//            setGraphic(...);
+            setGraphic(null);
+        } else if (player != null) {
+            ParentAndControllerRetrieverUseCase<PlayerItemController> useCase = new ParentAndControllerRetrieverUseCase<>();
+            ParentAndControllerRetrieverUseCase<PlayerItemController>.ParentControllerPair parentControllerPair =
+                    useCase.getParentControllerPair("player_item.fxml");
+            parentControllerPair.getController().setPlayer(player);
+            setGraphic(parentControllerPair.getParent());
+        } else {
+            setText("null");
+            setGraphic(null);
         }
     }
 

@@ -9,14 +9,19 @@ import four_in_a_row.data.ApplicationProperties;
 import four_in_a_row.graphics.GameSpecificsValidation;
 import four_in_a_row.graphics.PlayerNameBoxRepresentation;
 import four_in_a_row.graphics.PlayerSelector;
+import four_in_a_row.graphics.use_case.ParentAndControllerRetrieverUseCase;
 import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,6 +49,7 @@ public class GameController {
 
     public HBox player1NameLabelBox, player2NameLabelBox;
 
+    private final ObservableList<Player> players = FXCollections.observableArrayList();
     private Game game;
 
     public void init() {
@@ -137,7 +143,7 @@ public class GameController {
                         Cell cell = new Cell(coordinates);
 
                         FXMLLoader loader = new FXMLLoader();
-                        loader.load(getClass().getResourceAsStream("../../cell.fxml"));
+                        loader.load(getClass().getResourceAsStream("../../fxml/cell.fxml"));
 
                         CellController cellController = loader.getController();
                         cellController.setCell(cell);
@@ -181,8 +187,10 @@ public class GameController {
             this.game.firstPlayer.setName(player1Name);
             this.game.secondPlayer.setName(player2Name);
 
-            this.player1NameLabelBox = new PlayerNameBoxRepresentation(player1Name, "red_token.png", "player1NameLabel");
-            this.player2NameLabelBox = new PlayerNameBoxRepresentation(player2Name, "blue_token.png", "player2NameLabel");
+            this.player1NameLabelBox = new PlayerNameBoxRepresentation(player1Name,
+                    "red_token.png", "player1NameLabel");
+            this.player2NameLabelBox = new PlayerNameBoxRepresentation(player2Name,
+                    "blue_token.png", "player2NameLabel");
 
             this.leftBar.getChildren().remove(1, 3);
             this.leftBar.getChildren().addAll(1, List.of(this.player1NameLabelBox, this.player2NameLabelBox));
@@ -207,7 +215,15 @@ public class GameController {
 
     @FXML
     public void onCreatePlayer() {
+        ParentAndControllerRetrieverUseCase<PlayerCreatorController> useCase = new ParentAndControllerRetrieverUseCase<>();
+        ParentAndControllerRetrieverUseCase<PlayerCreatorController>.ParentControllerPair parentControllerPair
+                = useCase.getParentControllerPair("player_creator.fxml");
+        parentControllerPair.getController().setPlayersList(players);
 
+        Scene scene = new Scene(parentControllerPair.getParent());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 }

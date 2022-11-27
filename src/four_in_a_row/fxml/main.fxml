@@ -61,7 +61,7 @@
             <PlayerSelector id="playerOneNameBox" fx:id="playerOneNameBox" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="170.0" />
             <PlayerSelector id="playerTwoNameBox" fx:id="playerTwoNameBox" maxWidth="1.7976931348623157E308" />
             <Button id="playBtn" fx:id="playButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPlayClicked" prefHeight="25.0" text="PLAY" />
-            <Button id="createBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreatePlayer" prefHeight="25.0" text="CREATE PLAYER" />
+            <Button id="createBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreatePlayer" prefHeight="25.0" text="Edit players" />
          </children>
          <padding>
             <Insets left="10.0" right="10.0" top="70.0" />
