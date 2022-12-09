@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -93,7 +95,7 @@ public class GameController {
     private void onPlayerWinning(Player current) {
         this.winnerLabel.setOpacity(1);
         this.winnerLabel.setText("Player " + current.getName() + " won!");
-        this.gameTablePane.setDisable(true);
+        this.columnsMouseDetectionPane.setDisable(true);
     }
 
     private void onSizeChanged(Observable observable) {
@@ -196,7 +198,7 @@ public class GameController {
             this.leftBar.getChildren().addAll(1, List.of(this.player1NameLabelBox, this.player2NameLabelBox));
 
             this.playButton.setText("Play again");
-            this.gameTablePane.setDisable(false);
+            this.columnsMouseDetectionPane.setDisable(false);
             this.graphicTable.getChildren().forEach(node -> node.setOpacity(1));
 
             this.game.setPlaying(true);
@@ -209,7 +211,7 @@ public class GameController {
         this.playButton.setText("Play");
         this.leftBar.getChildren().remove(1, 3);
         this.leftBar.getChildren().addAll(1, List.of(this.playerOneNameBox, this.playerTwoNameBox));
-        this.gameTablePane.setDisable(true);
+        this.columnsMouseDetectionPane.setDisable(true);
         this.graphicTable.getChildren().forEach(node -> node.setOpacity(0.5));
     }
 

@@ -4,18 +4,20 @@
     -fx-text-fill: #ef2559;
 }
 
-#graphicTable {
+#gameTableMainLayout {
     -fx-background-image: url("../img/four_in_row_bg_pattern.jpg");
-    -fx-background-radius: 2em;
-    -fx-shape:"M 0 0 L 0 -5 C 0 -6 0 -6 1 -6 L 11 -6 C 12 -6 12 -6 12 -5 L 12 0 C 12 1 12 1 11 1 L 1 1 C 0 1 0 1 0 0";
+    -fx-shape:"M 10.543 -65.083 C -0.32 -128.055 -1.467 -129.583 6.556 -128.437 C 14.728 -130.869 33.318 -113.671 50.01 -129.93 C 58.708 -131.177 68.065 -132.639 83.804 -122.022 S 100.8417 -131.279 159.722 -130.373 S 198.061 -136.067 204.894 -118.985 S 199.959 -109.875 203.755 -85.202 Q 214.004 -58.905 202.616 -44.585 Q 210.566 -20.51 210.184 -10.386 T 151.751 -5.108 Q 100.9205 -0.835 48.502 -3.969 C 2.736 1.075 0.826 -1.981 11.302 -30.92 Z";
     -fx-background-position: center center;
     -fx-background-repeat: repeat;
-    -fx-border-color: black;
+    -fx-border-color: #ffffff;
     -fx-border-radius: 2em;
 }
 
+#graphicTable {
+}
+
 .root {
-    -fx-background-color: #d6cca5;
+    -fx-background-image: url("../img/snow.jpg");
 }
 
 #title {
@@ -31,9 +33,17 @@
 }
 
 #winnerLbl {
+    -fx-background-image: url("../img/wood.jpg");
     -fx-font-family: "Comic Sans MS";
     -fx-font-size: 14pt;
-    -fx-text-fill: #2e2eef;
+    -fx-text-fill: #eadead;
+    -fx-padding: 10;
+    -fx-shape: "M 10.543 -65.083 C -0.32 -128.055 -1.467 -129.583 6.556 -128.437 C 14.728 -130.869 33.318 -113.671 50.01 -129.93 C 58.708 -131.177 68.065 -132.639 83.804 -122.022 S 100.8417 -131.279 159.722 -130.373 S 198.061 -136.067 204.894 -118.985 S 199.959 -109.875 203.755 -85.202 Q 214.004 -58.905 202.616 -44.585 Q 210.566 -20.51 210.184 -10.386 T 151.751 -5.108 Q 100.9205 -0.835 48.502 -3.969 C 2.736 1.075 0.826 -1.981 11.302 -30.92 Z";
+}
+
+#winnerLbl:hover {
+    -fx-text-fill: #8dff43;
+    -fx-font-scale: 2;
 }
 
 #playerOneNameBox > .open-button > .arrow {
