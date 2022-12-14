@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.CubicCurve?>
 
-<GridPane fx:controller="four_in_a_row.graphics.controller.PlayerItemEditController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="532.0" style="-fx-background-color: lightgrey;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="532.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.controller.PlayerItemEditController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="136.66668701171875" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="377.3333485921224" minWidth="10.0" prefWidth="213.99997965494788" />
@@ -21,8 +21,8 @@
     <RowConstraints maxHeight="322.6666450500488" minHeight="10.0" prefHeight="254.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="New username:" />
-      <TextField maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
+      <Label text="Username:" />
+      <TextField maxWidth="-Infinity" prefWidth="200.0" promptText="insert here a username" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
       <Label text="Funny audio play: " GridPane.rowIndex="1" />
       <CubicCurve controlX1="-66.47471618652344" controlX2="-53.14439010620117" controlY1="-31.546987533569336" controlY2="27.350833892822266" endX="42.18892288208008" endY="-6.35782896551973E-7" fill="DODGERBLUE" startX="-150.0" stroke="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Circle fill="#ff3632" radius="10.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />

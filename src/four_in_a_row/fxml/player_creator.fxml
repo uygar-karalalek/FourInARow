@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="497.0" stylesheets="@player_creator.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.controller.PlayerCreatorController">
+<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="735.0" stylesheets="@player_creator.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="four_in_a_row.graphics.controller.PlayerCreatorController">
    <top>
       <VBox alignment="CENTER" prefHeight="121.0" prefWidth="497.0" BorderPane.alignment="CENTER">
          <children>

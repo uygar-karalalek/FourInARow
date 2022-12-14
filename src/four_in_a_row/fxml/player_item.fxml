@@ -39,7 +39,6 @@
             <Label fx:id="timeLabel" prefHeight="17.0" prefWidth="41.0" text="00:00" />
             <Slider fx:id="audioSlider" />
             <Button id="editBtn" fx:id="editBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEdit" prefHeight="37.0" prefWidth="89.0" text="Edit" />
-            <Button id="saveBtn" fx:id="saveBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="89.0" text="Save" />
          </children>
          <padding>
             <Insets left="20.0" right="20.0" />

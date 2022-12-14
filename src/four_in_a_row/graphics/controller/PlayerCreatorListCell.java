@@ -16,7 +16,7 @@ public class PlayerCreatorListCell extends ListCell<Player> {
             ParentAndControllerRetrieverUseCase<PlayerItemController> useCase = new ParentAndControllerRetrieverUseCase<>();
             ParentAndControllerRetrieverUseCase<PlayerItemController>.ParentControllerPair parentControllerPair =
                     useCase.getParentControllerPair("player_item.fxml");
-            parentControllerPair.getController().setPlayer(player);
+            parentControllerPair.getController().initializeOnPlayerSet(player);
             setGraphic(parentControllerPair.getParent());
         } else {
             setText("null");

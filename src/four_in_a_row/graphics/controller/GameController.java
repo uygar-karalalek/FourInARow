@@ -64,6 +64,8 @@ public class GameController {
         playerOneNameBox.initializeSelector(playerTwoNameBox);
         playerTwoNameBox.initializeSelector(playerOneNameBox);
 
+        for (String playerName : playerNames) players.add(new Player(null, playerName));
+
         graphicTable.widthProperty().addListener(this::onSizeChanged);
         graphicTable.heightProperty().addListener(this::onSizeChanged);
 

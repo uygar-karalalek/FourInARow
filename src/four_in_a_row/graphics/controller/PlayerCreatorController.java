@@ -19,8 +19,6 @@ public class PlayerCreatorController {
 
     public void initialize() {
         this.players.setCellFactory(playerListView -> new PlayerCreatorListCell());
-        this.players.getItems().add(new Player(null, "FDA"));
-        this.players.getItems().add(new Player(null, "Ci"));
     }
 
     public void onCreatePlayer() {
@@ -33,6 +31,6 @@ public class PlayerCreatorController {
 
     public void setPlayersList(ObservableList<Player> playersList) {
         this.playersList = playersList;
-
+        this.playersList.forEach(p -> this.players.getItems().add(p));
     }
 }
