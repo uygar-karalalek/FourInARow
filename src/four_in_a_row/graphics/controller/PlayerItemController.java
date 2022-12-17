@@ -5,7 +5,10 @@ import four_in_a_row.core.logic.Player;
 import four_in_a_row.graphics.use_case.AudioSecondsCounterUseCase;
 import four_in_a_row.graphics.use_case.ParentAndControllerRetrieverUseCase;
 import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -16,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,12 +35,23 @@ public class PlayerItemController implements Initializable {
     @FXML
     public HBox viewLayout;
 
+    private Media media;
+    private MediaPlayer mediaPlayer;
+
+    private double audioDuration = 0;
+
     private SimpleObjectProperty<Player> player = new SimpleObjectProperty<>();
     private AudioSecondsCounterUseCase useCase;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewLayout.getChildren().remove(pauseBtn);
+    }
+
+    public void onAudioTimeSliderValueChanged(ObservableValue<? extends Number> obs,
+                                              Number old, Number newVal) {
+        System.out.println(audioDuration * ((double) newVal) + "< " + audioDuration);
+        mediaPlayer.seek(Duration.seconds(audioDuration * ((double) newVal)));
     }
 
     @FXML
@@ -56,15 +71,19 @@ public class PlayerItemController implements Initializable {
         this.player.set(player);
         usernameLbl.setText(player.getName());
         try {
-            Media media = new Media(Main.class.getResource("./audios/" + player.getName() + ".mp3").toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            this.media = new Media(Main.class.getResource("./audios/" + player.getName() + ".mp3").toURI().toString());
+            this.mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setOnReady(() -> {
+                this.audioDuration = media.getDuration().toSeconds();
+
                 playBtn.setOnMouseClicked(mouseEvent -> {
                     mediaPlayer.play();
                     this.useCase.apply();
                 });
                 pauseBtn.setOnMouseClicked(mouseEvent -> mediaPlayer.pause());
                 setAudioActions(media, mediaPlayer);
+
+                audioSlider.valueProperty().addListener(this::onAudioTimeSliderValueChanged);
             });
         } catch (Exception e) {
             System.out.println("The player " + player.getName() + " does not have an audio file!");

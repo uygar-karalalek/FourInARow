@@ -37,7 +37,7 @@
                </graphic>
             </Button>
             <Label fx:id="timeLabel" prefHeight="17.0" prefWidth="41.0" text="00:00" />
-            <Slider fx:id="audioSlider" />
+            <Slider fx:id="audioSlider" max="1.0" />
             <Button id="editBtn" fx:id="editBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEdit" prefHeight="37.0" prefWidth="89.0" text="Edit" />
          </children>
          <padding>
